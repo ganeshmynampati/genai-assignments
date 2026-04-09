@@ -1,0 +1,54 @@
+postman request POST 'https://api.groq.com/openai/v1/chat/completions' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Bearer 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' \
+  --header 'Cookie: __cf_bm=v1qB4NsySvab08gsS.gmM85NcS378ZM.jU8zwTxbnE0-1775735762.619997-1.0.1.1-.X2rM7jpyGrdqlJtB7MLNCoEvUS6uNFNM_FcuYdfK8OZuTDSE.53a4SnAk_FNM4m3eLLNiWSObkAuqDqbEbf8_d_btZUzkn8l.v1pkU_63uyR45wnl84TYLo1jOO3XbJ' \
+  --body '{
+  "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+  "messages": [
+    {
+         "role": "system",
+         "content": "You are a Senior QA Analyst experienced in converting Agile user stories into high-quality, review-ready test cases."
+    },
+    {
+      "role": "user",
+      "content": "I — INSTRUCTION\nConvert the provided User Stories and Acceptance Criteria into detailed, testable Test Cases.\n\nMANDATORY RULES:\n1) Derive test cases ONLY from the given user stories and acceptance criteria.\n2) Do NOT add assumptions or new requirements.\n3) Cover positive, negative, and validation scenarios.\n4) Write test cases from an end-user perspective.\n5) Do NOT include implementation or technical details.\n\nC — CONTEXT\nThese test cases will be used by QA teams for manual and automation testing in an enterprise eCommerce application.\n\nP — PERSONA\nYou are a Senior QA Analyst experienced in converting Agile user stories into high-quality, review-ready test cases.\n\nO — OUTPUT\nReturn test cases in the following structured format:\n- TC_ID\n- Title\n- Preconditions\n- Test Steps\n- Test Data\n- Expected Result\n\nRules:\n- Each test case must be clear and independent\n- Use business-readable language only\n- One scenario per test case\n\nUSER STORY:\nAs a user I want to keep track of transactions happened in amazon.com from India through allowable payment methods\n\nACCEPTANCE CRITERIA:\nGIVEN user launches Amazon India website\nWhen user purchases retail products\nThen user selects Credit card or PayPal or GPay payment method and performs the payment.\n"
+    }
+  ]
+}
+'
+
+Response:
+
+{
+    "id": "chatcmpl-1f82c0f1-5132-47d1-a71c-7221737c0382",
+    "object": "chat.completion",
+    "created": 1775735765,
+    "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": "Here are the test cases derived from the provided User Story and Acceptance Criteria:\n\n**TC_ID: TC-001**\n**Title: Successful Payment using Credit Card**\n**Preconditions:** User has a valid Amazon India account, has added retail products to cart, and is on the payment page.\n**Test Steps:**\n\n1. Launch Amazon India website.\n2. Select retail products to purchase.\n3. Proceed to payment page.\n4. Choose Credit card as payment method.\n5. Enter valid credit card details (card number, expiration date, CVV).\n6. Click on \"Pay\" button.\n\n**Test Data:**\n\n* Valid credit card details (e.g. card number: 1234-5678-9012-3456, expiration date: 12/2025, CVV: 123)\n\n**Expected Result:** The payment is processed successfully, and the user receives a confirmation of the transaction.\n\n**TC_ID: TC-002**\n**Title: Successful Payment using PayPal**\n**Preconditions:** User has a valid Amazon India account, has added retail products to cart, and is on the payment page, and has a valid PayPal account.\n**Test Steps:**\n\n1. Launch Amazon India website.\n2. Select retail products to purchase.\n3. Proceed to payment page.\n4. Choose PayPal as payment method.\n5. Redirect to PayPal login page.\n6. Enter valid PayPal credentials (username, password).\n7. Approve the payment.\n\n**Test Data:**\n\n* Valid PayPal credentials (e.g. username: example@gmail.com, password: password123)\n\n**Expected Result:** The payment is processed successfully through PayPal, and the user receives a confirmation of the transaction.\n\n**TC_ID: TC-003**\n**Title: Successful Payment using GPay**\n**Preconditions:** User has a valid Amazon India account, has added retail products to cart, and is on the payment page, and has a valid GPay account.\n**Test Steps:**\n\n1. Launch Amazon India website.\n2. Select retail products to purchase.\n3. Proceed to payment page.\n4. Choose GPay as payment method.\n5. Redirect to GPay payment page.\n6. Approve the payment.\n\n**Test Data:**\n\n* Valid GPay account\n\n**Expected Result:** The payment is processed successfully through GPay, and the user receives a confirmation of the transaction.\n\n**TC_ID: TC-004**\n**Title: Invalid Credit Card Details**\n**Preconditions:** User has a valid Amazon India account, has added retail products to cart, and is on the payment page.\n**Test Steps:**\n\n1. Launch Amazon India website.\n2. Select retail products to purchase.\n3. Proceed to payment page.\n4. Choose Credit card as payment method.\n5. Enter invalid credit card details (e.g. expired card, incorrect CVV).\n\n**Test Data:**\n\n* Invalid credit card details (e.g. card number: 1234-5678-9012-3456, expiration date: 01/2020, CVV: 000)\n\n**Expected Result:** The payment fails, and an error message is displayed indicating that the credit card details are invalid.\n\n**TC_ID: TC-005**\n**Title: PayPal Payment Cancellation**\n**Preconditions:** User has a valid Amazon India account, has added retail products to cart, and is on the payment page, and has a valid PayPal account.\n**Test Steps:**\n\n1. Launch Amazon India website.\n2. Select retail products to purchase.\n3. Proceed to payment page.\n4. Choose PayPal as payment method.\n5. Redirect to PayPal login page.\n6. Enter valid PayPal credentials (username, password).\n7. Cancel the payment on PayPal page.\n\n**Test Data:**\n\n* Valid PayPal credentials (e.g. username: example@gmail.com, password: password123)\n\n**Expected Result:** The payment is cancelled, and the user is redirected back to the Amazon India payment page with an error message.\n\n**TC_ID: TC-006**\n**Title: GPay Payment Failure**\n**Preconditions:** User has a valid Amazon India account, has added retail products to cart, and is on the payment page, and has a valid GPay account.\n**Test Steps:**\n\n1. Launch Amazon India website.\n2. Select retail products to purchase.\n3. Proceed to payment page.\n4. Choose GPay as payment method.\n5. Redirect to GPay payment page.\n6. Simulate a payment failure on GPay page.\n\n**Test Data:**\n\n* Valid GPay account\n\n**Expected Result:** The payment fails, and an error message is displayed indicating that the payment was not successful."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "queue_time": 0.047309466,
+        "prompt_tokens": 297,
+        "prompt_time": 0.011908569,
+        "completion_tokens": 943,
+        "completion_time": 2.375697511,
+        "total_tokens": 1240,
+        "total_time": 2.38760608
+    },
+    "usage_breakdown": null,
+    "system_fingerprint": "fp_37da608fc1",
+    "x_groq": {
+        "id": "req_01kns1jvpheasa68brtkatbqah",
+        "seed": 229454065
+    },
+    "service_tier": "on_demand"
+}
